@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "292294802001",
+    "project_id": "humankind-71929",
+    "storage_bucket": "humankind-71929.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292294802001:android:d2655ee76f378064bdd670",
+        "android_client_info": {
+          "package_name": "com.example.humankind"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "292294802001-hnvnk06aj3bib9adt7dqa01bpkvfldpv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcZyNt67DSPnQdNkZSY4uSLtHbKpArbCM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "292294802001-hnvnk06aj3bib9adt7dqa01bpkvfldpv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
