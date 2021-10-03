@@ -17,8 +17,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _passwordController = TextEditingController();
   late StreamSubscription lister;
 
-  String _status = '';
-  String _userEmail = '';
   String _registerS = 'Register';
 
   @override
@@ -37,18 +35,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Future<void> _register() async {
     try {
-      final User? user = (await widget.auth.createUserWithEmailAndPassword(
+      await widget.auth.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
-      ))
-          .user;
-      if (user != null) {
-        setState(() {
-          _status = 'in';
-        });
-      } else {
-        _status = 'error';
-      }
+      );
     } on FirebaseAuthException catch (e) {
       showDialog(
         context: context,
@@ -70,23 +60,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-  Future<void> _signOut() async {
-    await widget.auth.signOut();
-  }
-
   Future<void> _authListener() async {
-    lister = widget.auth.authStateChanges().listen((User? user) {
-      setState(() {
-        if (user == null) {
-          _registerS = 'Register';
-          _emailController.text = '';
-          _passwordController.text = '';
-          _status = '';
-        } else {
-          Navigator.pop(context);
-        }
-      });
-    });
+    lister = widget.auth.authStateChanges().listen(
+      (User? user) {
+        setState(
+          () {
+            if (user == null) {
+              _registerS = 'Register';
+              _emailController.text = '';
+              _passwordController.text = '';
+            } else {
+              Navigator.pop(context);
+            }
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -132,14 +121,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 },
                 text: _registerS,
               ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              child: Text(_status == ''
-                  ? ''
-                  : (_status == 'in'
-                      ? 'Successfully registered $_userEmail'
-                      : 'Registration failed')),
             ),
           ],
         ),

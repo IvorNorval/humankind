@@ -41,23 +41,27 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _authListener() async {
-    lister = widget.auth.authStateChanges().listen((User? user) {
-      setState(() {
-        if (user == null) {
-          _registerS = 'Register';
-          _signInS = 'Sign In';
-          _emailController.text = '';
-          _passwordController.text = '';
-        } else {
-          _registerS = 'Sign Out';
-          String name = '';
-          if (user.email != null) {
-            name = user.email!.split('@').first;
-          }
-          _signInS = name;
-        }
-      });
-    });
+    lister = widget.auth.authStateChanges().listen(
+      (User? user) {
+        setState(
+          () {
+            if (user == null) {
+              _registerS = 'Register';
+              _signInS = 'Sign In';
+              _emailController.text = '';
+              _passwordController.text = '';
+            } else {
+              _registerS = 'Sign Out';
+              String name = '';
+              if (user.email != null) {
+                name = user.email!.split('@').first;
+              }
+              _signInS = name;
+            }
+          },
+        );
+      },
+    );
   }
 
   @override

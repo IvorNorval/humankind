@@ -61,18 +61,22 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Future<void> _authListener() async {
-    lister = widget.auth.authStateChanges().listen((User? user) {
-      setState(() {
-        if (user == null) {
-          _signInS = 'Sign In';
-          _emailController.text = '';
-          _passwordController.text = '';
-        } else {
-          widget.auth.authStateChanges().listen((event) {}).cancel();
-          Navigator.pop(context);
-        }
-      });
-    });
+    lister = widget.auth.authStateChanges().listen(
+      (User? user) {
+        setState(
+          () {
+            if (user == null) {
+              _signInS = 'Sign In';
+              _emailController.text = '';
+              _passwordController.text = '';
+            } else {
+              widget.auth.authStateChanges().listen((event) {}).cancel();
+              Navigator.pop(context);
+            }
+          },
+        );
+      },
+    );
   }
 
   @override
