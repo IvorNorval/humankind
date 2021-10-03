@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
@@ -13,12 +15,9 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  late StreamSubscription lister;
 
-  String _success = '';
-  String _userEmail = '';
   String _signInS = 'Sign In';
-  String _registerS = 'Register';
-  String _signOutS = '';
 
   @override
   void initState() {
@@ -30,23 +29,23 @@ class _SignInScreenState extends State<SignInScreen> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
-    widget.auth.authStateChanges().listen((event) {}).cancel();
+    lister.cancel();
     super.dispose();
   }
 
   Future<void> _signInWithEmailAndPassword() async {
     try {
-      await widget.auth.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text("Error"),
-            content: Text(e.toString()),
+            content: Text(e.code),
             actions: [
               ElevatedButton(
                 child: const Text("Ok"),
@@ -61,30 +60,16 @@ class _SignInScreenState extends State<SignInScreen> {
     }
   }
 
-  Future<void> _signOut() async {
-    await widget.auth.signOut();
-  }
-
   Future<void> _authListener() async {
-    widget.auth.authStateChanges().listen((User? user) {
+    lister = widget.auth.authStateChanges().listen((User? user) {
       setState(() {
         if (user == null) {
-          _registerS = 'Register';
           _signInS = 'Sign In';
-          _signOutS = '';
           _emailController.text = '';
           _passwordController.text = '';
-          _success = 'false';
         } else {
+          widget.auth.authStateChanges().listen((event) {}).cancel();
           Navigator.pop(context);
-          // _registerS = 'Sign Out';
-          // String name = '';
-          // if (user.email != null) {
-          //   name = user.email!.split('@').first;
-          // }
-          // _signInS = '$name';
-          // _signOutS = 'Sign Out';
-          // _success = 'true';
         }
       });
     });
@@ -133,14 +118,6 @@ class _SignInScreenState extends State<SignInScreen> {
                 },
               ),
             ),
-            Container(
-              alignment: Alignment.center,
-              child: Text(_success == ''
-                  ? ''
-                  : (_success == 'true'
-                      ? 'Successfully registered $_userEmail'
-                      : 'Registration failed')),
-            )
           ],
         ),
       ),

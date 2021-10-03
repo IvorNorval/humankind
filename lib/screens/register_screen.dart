@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_builder.dart';
@@ -13,6 +15,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  late StreamSubscription lister;
 
   String _status = '';
   String _userEmail = '';
@@ -28,7 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
-    widget.auth.authStateChanges().listen((event) {}).cancel();
+    lister.cancel();
     super.dispose();
   }
 
@@ -46,13 +49,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
       } else {
         _status = 'error';
       }
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text("Error"),
-            content: Text(e.toString()),
+            content: Text(e.code),
             actions: [
               ElevatedButton(
                 child: const Text("Ok"),
@@ -72,7 +75,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Future<void> _authListener() async {
-    widget.auth.authStateChanges().listen((User? user) {
+    lister = widget.auth.authStateChanges().listen((User? user) {
       setState(() {
         if (user == null) {
           _registerS = 'Register';

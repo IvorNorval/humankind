@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,12 +16,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  late StreamSubscription lister;
 
-  String _success = '';
-  String _userEmail = '';
   String _signInS = 'Sign In';
   String _registerS = 'Register';
-  String _signOutS = '';
 
   @override
   void initState() {
@@ -32,42 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     _signOut();
-    widget.auth.authStateChanges().listen((event) {}).cancel();
+    lister.cancel();
     super.dispose();
-  }
-
-  Future<void> _register() async {
-    await widget.auth.createUserWithEmailAndPassword(
-      email: _emailController.text.trim(),
-      password: _passwordController.text.trim(),
-    );
-  }
-
-  Future<void> _signInWithEmailAndPassword() async {
-    try {
-      await widget.auth.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
-    } catch (e) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Error"),
-            content: Text(e.toString()),
-            actions: [
-              ElevatedButton(
-                child: const Text("Ok"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          );
-        },
-      );
-    }
   }
 
   Future<void> _signOut() async {
@@ -75,24 +41,20 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _authListener() async {
-    widget.auth.authStateChanges().listen((User? user) {
+    lister = widget.auth.authStateChanges().listen((User? user) {
       setState(() {
         if (user == null) {
           _registerS = 'Register';
           _signInS = 'Sign In';
-          _signOutS = '';
           _emailController.text = '';
           _passwordController.text = '';
-          _success = 'false';
         } else {
           _registerS = 'Sign Out';
           String name = '';
           if (user.email != null) {
             name = user.email!.split('@').first;
           }
-          _signInS = '$name';
-          _signOutS = 'Sign Out';
-          _success = 'true';
+          _signInS = name;
         }
       });
     });
@@ -126,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         'Humankind crowdfunding',
                         style: TextStyle(
                           fontSize: 24,
-                          color: Color(0xffffe8d6),
+                          color: Color(0xfffefae0),
                         ),
                       ),
                     ),
@@ -143,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           _signInS,
                           style: const TextStyle(
                             fontSize: 20,
-                            color: Color(0xffffe8d6),
+                            color: Color(0xfffefae0),
                           ),
                         ),
                       ),
@@ -163,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           _registerS,
                           style: const TextStyle(
                             fontSize: 20,
-                            color: Color(0xffffe8d6),
+                            color: Color(0xfffefae0),
                           ),
                         ),
                       ),
