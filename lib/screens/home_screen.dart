@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:humankind/models/user.dart';
+import 'package:humankind/models/users.dart';
+import 'package:humankind/services/db_helper.dart';
 import 'package:humankind/widgets/banner.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,14 +15,25 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  UsersModel users = UsersModel();
+  int n = 0;
+
   @override
   void initState() {
+    initDb();
+    initStream(_usersCallback);
     super.initState();
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void _usersCallback(UsersModel event) {
+    setState(() {
+      users = event;
+    });
   }
 
   @override
@@ -32,72 +46,29 @@ class _HomeScreenState extends State<HomeScreen> {
               BannerWidget(
                 auth: widget.auth,
               ),
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: Stack(
-              //     children: [
-              //       Container(
-              //         height: 100,
-              //         width: MediaQuery.of(context).size.width,
-              //         decoration: const BoxDecoration(
-              //           image: DecorationImage(
-              //             image: AssetImage(
-              //                 "assets/images/crowded-street-yellow.jpg"),
-              //             fit: BoxFit.cover,
-              //           ),
-              //           borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              //         ),
-              //       ),
-              //       const Center(
-              //         child: Text(
-              //           'Humankind crowdfunding',
-              //           style: TextStyle(
-              //             fontSize: 24,
-              //             color: Color(0xfffefae0),
-              //           ),
-              //         ),
-              //       ),
-              //       Positioned(
-              //         top: 50,
-              //         left: 10,
-              //         child: TextButton(
-              //           onPressed: () {
-              //             if (_signInS == 'Sign In') {
-              //               Navigator.pushNamed(context, 'signIn');
-              //             }
-              //           },
-              //           child: Text(
-              //             _signInS,
-              //             style: const TextStyle(
-              //               fontSize: 20,
-              //               color: Color(0xfffefae0),
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //       Positioned(
-              //         top: 50,
-              //         right: 10,
-              //         child: TextButton(
-              //           onPressed: () {
-              //             if (_registerS == 'Register') {
-              //               Navigator.pushNamed(context, 'register');
-              //             } else {
-              //               _signOut();
-              //             }
-              //           },
-              //           child: Text(
-              //             _registerS,
-              //             style: const TextStyle(
-              //               fontSize: 20,
-              //               color: Color(0xfffefae0),
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
+              TextButton(
+                onPressed: () {
+                  String name = 'user$n';
+                  String email = 'name.${n++}@gmail.com';
+                  UserModel user = UserModel(name: name, email: email);
+                  users.users.add(user);
+                  addUser(users);
+                },
+                child: const Text('add user'),
+              ),
+              SingleChildScrollView(
+                child: SizedBox(
+                  height: 500,
+                  child: ListView.builder(
+                    itemCount: users.users.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(users.users[index].name),
+                      );
+                    },
+                  ),
+                ),
+              ),
             ],
           ),
         ),
