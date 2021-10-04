@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:humankind/models/user.dart';
 import 'package:humankind/models/users.dart';
 import 'package:humankind/services/db_helper.dart';
 import 'package:humankind/widgets/banner.dart';
@@ -22,9 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   late StreamSubscription lister;
   UsersModel users = UsersModel();
-  String userEmail = '';
-  int n = 0;
   bool showProfile = false;
+  int userIndex = -1;
+  late UserModel userIn;
 
   Future<void> _authListener() async {
     lister = auth.authStateChanges().listen(
@@ -33,8 +34,14 @@ class _HomeScreenState extends State<HomeScreen> {
           () {
             if (user != null) {
               showProfile = true;
+              userIndex = users.users.lastIndexWhere(
+                  (element) => element.email.trim() == auth.currentUser!.email);
+              if (userIndex > -1) {
+                userIn = users.users[userIndex];
+              }
             } else {
               showProfile = false;
+              userIndex = -1;
             }
           },
         );
@@ -82,6 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         builder: (context) => UserScreen(
                           auth: auth,
                           users: users,
+                          index: userIndex,
                         ),
                       ),
                     );

@@ -1,11 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:humankind/models/user.dart';
 import 'package:humankind/models/users.dart';
+
+import 'project_screen.dart';
 
 class UserScreen extends StatefulWidget {
   final FirebaseAuth auth;
   final UsersModel users;
-  const UserScreen({Key? key, required this.auth, required this.users})
+  final int index;
+  const UserScreen(
+      {Key? key, required this.auth, required this.users, required this.index})
       : super(key: key);
 
   @override
@@ -13,8 +18,43 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
+  late UserModel user;
+  @override
+  void initState() {
+    if (widget.index > -1) {
+      user = widget.users.users[widget.index];
+    }
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xff6b705c),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Text(user.name),
+            Text(user.email),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProjectScreen(
+                        users: widget.users,
+                        index: widget.index,
+                      ),
+                    ),
+                  );
+                },
+                child: const Text('Add project')),
+          ],
+        ),
+      ),
+    );
   }
 }

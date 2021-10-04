@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:humankind/models/user.dart';
 import 'package:humankind/models/users.dart';
 import 'package:humankind/screens/register_screen.dart';
 import 'package:humankind/screens/sign_in_screen.dart';
@@ -21,9 +22,10 @@ class BannerWidget extends StatefulWidget {
 
 class _BannerWidgetState extends State<BannerWidget> {
   late StreamSubscription lister;
-
   String _signInS = 'Sign In';
   String _registerS = 'Register';
+  int userIndex = -1;
+  late UserModel userIn;
 
   @override
   void initState() {
@@ -52,11 +54,14 @@ class _BannerWidgetState extends State<BannerWidget> {
               _signInS = 'Sign In';
             } else {
               _registerS = 'Sign Out';
-              String name = '';
-              if (user.email != null) {
-                name = user.email!.split('@').first;
+              userIndex = widget.users.users.lastIndexWhere((element) =>
+                  element.email.trim() == widget.auth.currentUser!.email);
+              if (userIndex > -1) {
+                userIn = widget.users.users[userIndex];
+                _signInS = userIn.name;
+              } else {
+                _signInS = 'no name';
               }
-              _signInS = name;
             }
           },
         );
