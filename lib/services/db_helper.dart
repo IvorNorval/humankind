@@ -12,7 +12,7 @@ void initDb() {
   usersRef = FirebaseFirestore.instance.collection('users');
 }
 
-Future<void> addUser(UsersModel users) {
+Future<void> updateUser(UsersModel users) {
   return usersRef
       .doc('ABC123')
       .set(users.toJson())

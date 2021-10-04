@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class SignInScreen extends StatefulWidget {
   final FirebaseAuth auth;
@@ -81,48 +82,51 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xff6b705c),
-      ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-              child: TextFormField(
-                controller: _emailController,
-                decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: 'Enter your email address',
+    return KeyboardDismisser(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color(0xff6b705c),
+        ),
+        body: Center(
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                child: TextFormField(
+                  controller: _emailController,
+                  decoration: const InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelText: 'Enter your email address',
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-              child: TextFormField(
-                controller: _passwordController,
-                decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: 'Enter your password',
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                child: TextFormField(
+                  controller: _passwordController,
+                  decoration: const InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelText: 'Enter your password',
+                  ),
+                  obscureText: true,
+                  enableSuggestions: false,
+                  autocorrect: false,
                 ),
-                obscureText: true,
-                enableSuggestions: false,
-                autocorrect: false,
               ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(top: 5),
-              alignment: Alignment.center,
-              child: SignInButton(
-                Buttons.Email,
-                text: _signInS,
-                onPressed: () async {
-                  await _signInWithEmailAndPassword();
-                },
+              Container(
+                padding: const EdgeInsets.only(top: 5),
+                alignment: Alignment.center,
+                child: SignInButton(
+                  Buttons.Email,
+                  text: _signInS,
+                  onPressed: () async {
+                    await _signInWithEmailAndPassword();
+                    FocusScope.of(context).requestFocus(FocusNode());
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

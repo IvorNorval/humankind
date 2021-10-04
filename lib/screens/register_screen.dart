@@ -142,7 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         name: _nameController.text,
                         email: _emailController.text);
                     widget.users.users.add(user);
-                    addUser(widget.users);
+                    updateUser(widget.users);
                   }
                 },
                 text: _registerS,

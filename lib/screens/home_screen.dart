@@ -55,6 +55,10 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  Future<void> _signOut() async {
+    await auth.signOut();
+  }
+
   @override
   void initState() {
     initDb();
@@ -66,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     lister.cancel();
+    _signOut();
     super.dispose();
   }
 

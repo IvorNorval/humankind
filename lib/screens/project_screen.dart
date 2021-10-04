@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:humankind/models/project.dart';
 import 'package:humankind/models/users.dart';
+import 'package:humankind/services/db_helper.dart';
 
 class ProjectScreen extends StatefulWidget {
   final UsersModel users;
@@ -12,6 +14,21 @@ class ProjectScreen extends StatefulWidget {
 }
 
 class _ProjectScreenState extends State<ProjectScreen> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _discController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _discController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +37,39 @@ class _ProjectScreenState extends State<ProjectScreen> {
       ),
       body: Center(
         child: Column(
-          children: [],
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+              child: TextFormField(
+                controller: _nameController,
+                decoration: const InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'Enter your project name',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+              child: TextFormField(
+                controller: _discController,
+                decoration: const InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'Enter project description',
+                ),
+              ),
+            ),
+            TextButton(
+                onPressed: () {
+                  ProjectModel project = ProjectModel(
+                      name: _nameController.text,
+                      description: _discController.text);
+                  widget.users.users[widget.index].projects.add(project);
+                  updateUser(widget.users);
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+                child: const Text('Add project')),
+          ],
         ),
       ),
     );

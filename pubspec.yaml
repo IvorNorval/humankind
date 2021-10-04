@@ -29,6 +29,7 @@ dependencies:
   cloud_firestore: ^2.5.3
   flutter_signin_button: ^2.0.0
   flutter_animated_cards: ^0.0.2
+  keyboard_dismisser: ^2.0.0
 
 dev_dependencies:
   flutter_test:
