@@ -3,16 +3,22 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_builder.dart';
+import 'package:humankind/models/user.dart';
+import 'package:humankind/models/users.dart';
+import 'package:humankind/services/db_helper.dart';
 
 class RegisterScreen extends StatefulWidget {
   final FirebaseAuth auth;
-  const RegisterScreen({Key? key, required this.auth}) : super(key: key);
+  final UsersModel users;
+  const RegisterScreen({Key? key, required this.auth, required this.users})
+      : super(key: key);
 
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   late StreamSubscription lister;
@@ -27,6 +33,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   void dispose() {
+    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     lister.cancel();
@@ -90,6 +97,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
               child: TextFormField(
+                controller: _nameController,
+                decoration: const InputDecoration(
+                  border: UnderlineInputBorder(),
+                  labelText: 'Enter your name',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+              child: TextFormField(
                 controller: _emailController,
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
@@ -117,7 +134,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 icon: Icons.person_add,
                 backgroundColor: Colors.blueGrey,
                 onPressed: () async {
-                  await _register();
+                  if (_nameController.text.isNotEmpty &&
+                      _emailController.text.isNotEmpty &&
+                      _passwordController.text.isNotEmpty) {
+                    await _register();
+                    UserModel user = UserModel(
+                        name: _nameController.text,
+                        email: _emailController.text);
+                    widget.users.users.add(user);
+                    addUser(widget.users);
+                  }
                 },
                 text: _registerS,
               ),

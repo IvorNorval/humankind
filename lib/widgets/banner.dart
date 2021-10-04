@@ -2,10 +2,18 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:humankind/models/users.dart';
+import 'package:humankind/screens/register_screen.dart';
+import 'package:humankind/screens/sign_in_screen.dart';
 
 class BannerWidget extends StatefulWidget {
   final FirebaseAuth auth;
-  const BannerWidget({Key? key, required this.auth}) : super(key: key);
+  final UsersModel users;
+  const BannerWidget({
+    Key? key,
+    required this.auth,
+    required this.users,
+  }) : super(key: key);
 
   @override
   _BannerWidgetState createState() => _BannerWidgetState();
@@ -88,7 +96,14 @@ class _BannerWidgetState extends State<BannerWidget> {
             child: TextButton(
               onPressed: () {
                 if (_signInS == 'Sign In') {
-                  Navigator.pushNamed(context, 'signIn');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SignInScreen(
+                        auth: widget.auth,
+                      ),
+                    ),
+                  );
                 }
               },
               child: Text(
@@ -106,7 +121,15 @@ class _BannerWidgetState extends State<BannerWidget> {
             child: TextButton(
               onPressed: () {
                 if (_registerS == 'Register') {
-                  Navigator.pushNamed(context, 'register');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RegisterScreen(
+                        auth: widget.auth,
+                        users: widget.users,
+                      ),
+                    ),
+                  );
                 } else {
                   _signOut();
                 }
