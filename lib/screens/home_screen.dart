@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:humankind/models/project_vector.dart';
 import 'package:humankind/models/user.dart';
 import 'package:humankind/models/users.dart';
 import 'package:humankind/services/db_helper.dart';
 import 'package:humankind/widgets/banner.dart';
+import 'package:humankind/widgets/project_list.dart';
 
 import 'user_screen.dart';
 
@@ -26,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool showProfile = false;
   int userIndex = -1;
   late UserModel userIn;
+  List<ProjectVector> projects = [];
 
   Future<void> _authListener() async {
     lister = auth.authStateChanges().listen(
@@ -52,6 +55,16 @@ class _HomeScreenState extends State<HomeScreen> {
   void _usersCallback(UsersModel event) {
     setState(() {
       users = event;
+      projects.clear();
+      for (int u = 0; u < users.users.length; u++) {
+        for (int p = 0; p < users.users[u].projects.length; p++) {
+          ProjectVector pro = ProjectVector(
+              project: users.users[u].projects[p],
+              projectIndex: p,
+              usersIndex: u);
+          projects.add(pro);
+        }
+      }
     });
   }
 
@@ -101,18 +114,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   child: const Text('Profile'),
                 ),
-              SingleChildScrollView(
-                child: SizedBox(
-                  height: 500,
-                  child: ListView.builder(
-                    itemCount: users.users.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(users.users[index].name),
-                      );
-                    },
-                  ),
-                ),
+              ProjectsWidget(
+                projects: projects,
+                users: users,
               ),
             ],
           ),
