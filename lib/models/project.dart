@@ -1,16 +1,16 @@
-import 'donors.dart';
+import 'donor.dart';
 
 class ProjectModel {
   final String name;
   final String description;
   late double donations;
-  List<Donors> donors = [];
+  List<Donor> donors = [];
 
   ProjectModel({
     required this.name,
     required this.description,
     double? donations,
-    List<Donors>? donors,
+    List<Donor>? donors,
   }) {
     this.donations = donations ?? 0;
     if (donors != null) {
@@ -33,9 +33,9 @@ class ProjectModel {
     );
     if (json['donors'] != null) {
       final list = json['donors'];
-      final List<Donors> donors = [];
+      final List<Donor> donors = [];
       for (final donor in list) {
-        donors.add(Donors.fromJson(donor));
+        donors.add(Donor.fromJson(donor));
       }
       project.donors = List.from(donors);
     }
@@ -44,7 +44,7 @@ class ProjectModel {
 
   Map<String, dynamic> toJson() {
     final List<Map<String, dynamic>> donorsMap = [];
-    for (final Donors donor in donors) {
+    for (final Donor donor in donors) {
       final Map<String, dynamic> resMap = donor.toJson();
       donorsMap.add(resMap);
     }

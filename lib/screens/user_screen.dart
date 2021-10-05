@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:humankind/models/user.dart';
 import 'package:humankind/models/users.dart';
 
-import 'project_screen.dart';
+import 'add_project_screen.dart';
 
 class UserScreen extends StatefulWidget {
   final FirebaseAuth auth;
@@ -44,7 +44,7 @@ class _UserScreenState extends State<UserScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ProjectScreen(
+                      builder: (context) => AddProjectScreen(
                         users: widget.users,
                         index: widget.index,
                       ),

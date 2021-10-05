@@ -55,10 +55,12 @@ class _HomeScreenState extends State<HomeScreen> {
   void _usersCallback(UsersModel event) {
     setState(() {
       users = event;
-      userIndex = users.users.lastIndexWhere(
-          (element) => element.email.trim() == auth.currentUser!.email);
-      if (userIndex > -1) {
-        userIn = users.users[userIndex];
+      if (auth.currentUser != null) {
+        userIndex = users.users.lastIndexWhere(
+            (element) => element.email.trim() == auth.currentUser!.email);
+        if (userIndex > -1) {
+          userIn = users.users[userIndex];
+        }
       }
       projects.clear();
       for (int u = 0; u < users.users.length; u++) {

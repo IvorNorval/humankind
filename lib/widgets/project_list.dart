@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:humankind/models/project_vector.dart';
 import 'package:humankind/models/user.dart';
 import 'package:humankind/models/users.dart';
-import 'package:humankind/services/db_helper.dart';
+import 'package:humankind/screens/project_screen.dart';
 
-class ProjectsWidget extends StatelessWidget {
+class ProjectsWidget extends StatefulWidget {
   final List<ProjectVector> projects;
   final UsersModel users;
   final UserModel loggedInUser;
@@ -16,18 +16,30 @@ class ProjectsWidget extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<ProjectsWidget> createState() => _ProjectsWidgetState();
+}
+
+class _ProjectsWidgetState extends State<ProjectsWidget> {
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: SizedBox(
         height: 500,
         child: ListView.builder(
-          itemCount: projects.length,
+          itemCount: widget.projects.length,
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-                users.users[projects[index].usersIndex]
-                    .projects[projects[index].projectIndex].donations += 20;
-                updateUser(users);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProjectScreen(
+                      project: widget.projects[index],
+                      loggedInUser: widget.loggedInUser,
+                      users: widget.users,
+                    ),
+                  ),
+                );
               },
               child: Card(
                 child: ListTile(
@@ -35,10 +47,10 @@ class ProjectsWidget extends StatelessWidget {
                     'assets/icons/donate_icon.png',
                     color: const Color(0xff6b705c),
                   ),
-                  title: Text(projects[index].project.name),
-                  subtitle: Text(projects[index].project.description),
+                  title: Text(widget.projects[index].project.name),
+                  subtitle: Text(widget.projects[index].project.description),
                   trailing: Text(
-                      '\$${projects[index].project.donations.toStringAsFixed(2)}'),
+                      '\$${widget.projects[index].project.donations.toStringAsFixed(2)}'),
                 ),
               ),
             );

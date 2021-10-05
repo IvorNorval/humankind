@@ -1,13 +1,13 @@
-class Donors {
+class Donor {
   final String donor;
 
-  Donors({
+  Donor({
     required this.donor,
   });
 
-  factory Donors.fromJson(dynamic json) {
-    final Donors user = Donors(
-      donor: json['name'] as String,
+  factory Donor.fromJson(dynamic json) {
+    final Donor user = Donor(
+      donor: json['donor'] as String,
     );
     return user;
   }
