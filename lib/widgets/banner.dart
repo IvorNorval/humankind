@@ -102,7 +102,7 @@ class _BannerWidgetState extends State<BannerWidget> {
               'Humankind crowdfunding',
               style: TextStyle(
                 fontSize: 24,
-                color: Color(0xffc3f73a),
+                color: Colors.white,
               ),
             ),
           ),
@@ -126,7 +126,7 @@ class _BannerWidgetState extends State<BannerWidget> {
                 _signInS,
                 style: const TextStyle(
                   fontSize: 20,
-                  color: Color(0xffdbf4ad),
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -154,7 +154,7 @@ class _BannerWidgetState extends State<BannerWidget> {
                 _registerS,
                 style: const TextStyle(
                   fontSize: 20,
-                  color: Color(0xffdbf4ad),
+                  color: Colors.white,
                 ),
               ),
             ),

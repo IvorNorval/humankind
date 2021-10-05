@@ -32,34 +32,54 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xffafa060),
       appBar: AppBar(
-        backgroundColor: const Color(0xff6b705c),
+        backgroundColor: const Color(0xff634310),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-              child: TextFormField(
-                controller: _nameController,
-                decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: 'Enter your project name',
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                  ),
+                  child: TextFormField(
+                    controller: _nameController,
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: ' Enter your project name',
+                    ),
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-              child: TextFormField(
-                controller: _discController,
-                decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: 'Enter project description',
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                  ),
+                  child: TextFormField(
+                    controller: _discController,
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: ' Enter project description',
+                    ),
+                  ),
                 ),
               ),
-            ),
-            TextButton(
-                onPressed: () {
+              GestureDetector(
+                onTap: () async {
+                  FocusScope.of(context).requestFocus(FocusNode());
                   ProjectModel project = ProjectModel(
                       name: _nameController.text,
                       description: _discController.text);
@@ -68,8 +88,28 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                   Navigator.pop(context);
                   Navigator.pop(context);
                 },
-                child: const Text('Add project')),
-          ],
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Container(
+                    width: 150,
+                    height: 50,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: const Color(0xffa5aa52),
+                    ),
+                    child: const Text(
+                      'Add project',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

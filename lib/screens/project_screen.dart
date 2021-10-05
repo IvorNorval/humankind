@@ -122,7 +122,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
                 },
                 icon: Image.asset(
                   'assets/icons/donate_icon.png',
-                  color: const Color(0xffcdc776),
+                  color: Colors.white,
                 ),
               ),
               SizedBox(

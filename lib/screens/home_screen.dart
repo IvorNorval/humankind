@@ -138,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         'Profile',
                         style: TextStyle(
                           fontSize: 20,
-                          color: Color(0xffdbf4ad),
+                          color: Colors.white,
                         ),
                       ),
                     ),

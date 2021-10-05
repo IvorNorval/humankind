@@ -17,8 +17,6 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _passwordController = TextEditingController();
   late StreamSubscription lister;
 
-  String _signInS = 'Sign In';
-
   @override
   void initState() {
     _authListener();
@@ -66,7 +64,6 @@ class _SignInScreenState extends State<SignInScreen> {
         setState(
           () {
             if (user == null) {
-              _signInS = 'Sign In';
               _emailController.text = '';
               _passwordController.text = '';
             } else {
@@ -102,7 +99,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     controller: _emailController,
                     decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
-                      labelText: 'Enter your email address',
+                      labelText: ' Enter your email address',
                     ),
                   ),
                 ),
@@ -119,7 +116,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     controller: _passwordController,
                     decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
-                      labelText: 'Enter your password',
+                      labelText: ' Enter your password',
                       fillColor: Colors.white,
                     ),
                     obscureText: true,
@@ -147,7 +144,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       'Sign In',
                       style: TextStyle(
                         fontSize: 20,
-                        color: Color(0xffdbf4ad),
+                        color: Colors.white,
                       ),
                     ),
                   ),

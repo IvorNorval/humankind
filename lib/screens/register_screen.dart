@@ -105,7 +105,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: _nameController,
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
-                    labelText: 'Enter your name',
+                    labelText: ' Enter your name',
                   ),
                 ),
               ),
@@ -121,7 +121,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: _emailController,
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
-                    labelText: 'Enter your email address',
+                    labelText: ' Enter your email address',
                   ),
                 ),
               ),
@@ -137,7 +137,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: _passwordController,
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
-                    labelText: 'Enter your password',
+                    labelText: ' Enter your password',
                   ),
                   obscureText: true,
                   enableSuggestions: false,
@@ -173,7 +173,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     _registerS,
                     style: const TextStyle(
                       fontSize: 20,
-                      color: Color(0xffdbf4ad),
+                      color: Colors.white,
                     ),
                   ),
                 ),
