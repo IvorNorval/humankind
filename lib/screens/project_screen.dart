@@ -77,6 +77,16 @@ class _ProjectScreenState extends State<ProjectScreen> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8),
                 child: Text(
+                  'Created by ${widget.users.users[widget.project.usersIndex].name}',
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Color(0xffdbf4ad),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Text(
                   widget.project.project.description,
                   style: const TextStyle(
                     fontSize: 20,
