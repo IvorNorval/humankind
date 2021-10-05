@@ -71,6 +71,14 @@ class _BannerWidgetState extends State<BannerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    userIndex = widget.users.users.lastIndexWhere(
+        (element) => element.email.trim() == widget.auth.currentUser!.email);
+    if (userIndex > -1) {
+      userIn = widget.users.users[userIndex];
+      _signInS = userIn.name;
+    } else {
+      _signInS = 'no name';
+    }
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Stack(

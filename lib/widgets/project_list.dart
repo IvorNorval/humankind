@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:humankind/models/project_vector.dart';
+import 'package:humankind/models/user.dart';
 import 'package:humankind/models/users.dart';
 import 'package:humankind/services/db_helper.dart';
 
 class ProjectsWidget extends StatelessWidget {
   final List<ProjectVector> projects;
   final UsersModel users;
-  const ProjectsWidget({Key? key, required this.projects, required this.users})
+  final UserModel loggedInUser;
+  const ProjectsWidget(
+      {Key? key,
+      required this.projects,
+      required this.users,
+      required this.loggedInUser})
       : super(key: key);
 
   @override

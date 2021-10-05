@@ -139,8 +139,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       _passwordController.text.isNotEmpty) {
                     await _register();
                     UserModel user = UserModel(
-                        name: _nameController.text,
-                        email: _emailController.text);
+                        name: _nameController.text.trim(),
+                        email: _emailController.text.trim());
                     widget.users.users.add(user);
                     updateUser(widget.users);
                   }

@@ -5,8 +5,7 @@ import 'screens/home_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(const MyApp());
+  await Firebase.initializeApp().whenComplete(() => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

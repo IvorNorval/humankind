@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   UsersModel users = UsersModel();
   bool showProfile = false;
   int userIndex = -1;
-  late UserModel userIn;
+  UserModel userIn = UserModel(name: 'anonymous', email: '');
   List<ProjectVector> projects = [];
 
   Future<void> _authListener() async {
@@ -55,6 +55,11 @@ class _HomeScreenState extends State<HomeScreen> {
   void _usersCallback(UsersModel event) {
     setState(() {
       users = event;
+      userIndex = users.users.lastIndexWhere(
+          (element) => element.email.trim() == auth.currentUser!.email);
+      if (userIndex > -1) {
+        userIn = users.users[userIndex];
+      }
       projects.clear();
       for (int u = 0; u < users.users.length; u++) {
         for (int p = 0; p < users.users[u].projects.length; p++) {
@@ -117,6 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ProjectsWidget(
                 projects: projects,
                 users: users,
+                loggedInUser: userIn,
               ),
             ],
           ),
