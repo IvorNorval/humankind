@@ -144,6 +144,9 @@ class _ProjectScreenState extends State<ProjectScreen> {
                       padding:
                           const EdgeInsets.only(left: 10, right: 10, bottom: 8),
                       child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
                         child: ListTile(
                           leading: const Text(
                             'Thanks!',
