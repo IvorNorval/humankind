@@ -34,7 +34,15 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
     return Scaffold(
       backgroundColor: const Color(0xffafa060),
       appBar: AppBar(
-        backgroundColor: const Color(0xff634310),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/crowded-street-yellow.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        backgroundColor: Colors.transparent,
       ),
       body: SingleChildScrollView(
         child: Center(

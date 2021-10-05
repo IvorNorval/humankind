@@ -68,7 +68,15 @@ class _ProjectScreenState extends State<ProjectScreen> {
             color: Colors.white,
           ),
         ),
-        backgroundColor: const Color(0xff634310),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/crowded-street-yellow.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        backgroundColor: Colors.transparent,
       ),
       body: SingleChildScrollView(
         child: Center(
