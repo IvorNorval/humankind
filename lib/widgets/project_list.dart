@@ -52,7 +52,8 @@ class _ProjectsWidgetState extends State<ProjectsWidget> {
                     title: Text(widget.projects[index].project.name),
                     subtitle: Text(widget.projects[index].project.description),
                     trailing: Text(
-                        '\$${widget.projects[index].project.donations.toStringAsFixed(2)}'),
+                      '\$${widget.projects[index].project.donations.toStringAsFixed(2)}',
+                    ),
                   ),
                 ),
               ),
