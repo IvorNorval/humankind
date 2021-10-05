@@ -38,7 +38,7 @@ class _UserScreenState extends State<UserScreen> {
           title: Text(
             user.name,
             style: const TextStyle(
-              color: Color(0xffdbf4ad),
+              color: Colors.white,
             ),
           ),
         ),
@@ -51,7 +51,7 @@ class _UserScreenState extends State<UserScreen> {
                   user.email,
                   style: const TextStyle(
                     fontSize: 20,
-                    color: Color(0xffdbf4ad),
+                    color: Colors.white,
                   ),
                 ),
               ),

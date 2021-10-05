@@ -65,7 +65,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
         title: Text(
           widget.project.project.name,
           style: const TextStyle(
-            color: Color(0xffdbf4ad),
+            color: Colors.white,
           ),
         ),
         backgroundColor: const Color(0xff634310),
@@ -80,7 +80,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
                   'Created by ${widget.users.users[widget.project.usersIndex].name}',
                   style: const TextStyle(
                     fontSize: 20,
-                    color: Color(0xffdbf4ad),
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -90,7 +90,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
                   widget.project.project.description,
                   style: const TextStyle(
                     fontSize: 20,
-                    color: Color(0xffdbf4ad),
+                    color: Colors.white,
                   ),
                 ),
               ),
