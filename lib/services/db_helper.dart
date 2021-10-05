@@ -6,6 +6,7 @@ import 'package:humankind/models/users.dart';
 late FirebaseFirestore firestore;
 late CollectionReference usersRef;
 late Stream<DocumentSnapshot> usersStreamRef;
+late StreamSubscription streamRef;
 
 void initDb() {
   firestore = FirebaseFirestore.instance;
@@ -20,9 +21,13 @@ Future<void> updateUser(UsersModel users) {
 }
 
 Future<void> initStream(Function callback) async {
-  usersRef.doc('ABC123').snapshots().listen((event) {
+  streamRef = usersRef.doc('ABC123').snapshots().listen((event) {
     DocumentSnapshot docSnapshot = event;
     UsersModel users = UsersModel.fromJson(docSnapshot.data());
     callback(users);
   });
+}
+
+void cancelStream() {
+  streamRef.cancel();
 }

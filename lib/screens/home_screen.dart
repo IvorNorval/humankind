@@ -43,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 userIn = users.users[userIndex];
               }
             } else {
+              userIn = UserModel(name: 'anonymous', email: '');
               showProfile = false;
               userIndex = -1;
             }
@@ -61,6 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
         if (userIndex > -1) {
           userIn = users.users[userIndex];
         }
+      } else {
+        userIn = UserModel(name: 'anonymous', email: '');
       }
       projects.clear();
       for (int u = 0; u < users.users.length; u++) {
@@ -91,6 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     lister.cancel();
     _signOut();
+    cancelStream();
     super.dispose();
   }
 
@@ -98,6 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: const Color(0xff634310),
         body: Center(
           child: Column(
             children: <Widget>[

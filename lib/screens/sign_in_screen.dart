@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -84,45 +83,74 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return KeyboardDismisser(
       child: Scaffold(
+        backgroundColor: const Color(0xff634310),
         appBar: AppBar(
-          backgroundColor: const Color(0xff6b705c),
+          backgroundColor: const Color(0xff634310),
         ),
         body: Center(
           child: Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                child: TextFormField(
-                  controller: _emailController,
-                  decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: 'Enter your email address',
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                  ),
+                  child: TextFormField(
+                    controller: _emailController,
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: 'Enter your email address',
+                    ),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                child: TextFormField(
-                  controller: _passwordController,
-                  decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: 'Enter your password',
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
                   ),
-                  obscureText: true,
-                  enableSuggestions: false,
-                  autocorrect: false,
+                  child: TextFormField(
+                    controller: _passwordController,
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: 'Enter your password',
+                      fillColor: Colors.white,
+                    ),
+                    obscureText: true,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                  ),
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.only(top: 5),
-                alignment: Alignment.center,
-                child: SignInButton(
-                  Buttons.Email,
-                  text: _signInS,
-                  onPressed: () async {
-                    await _signInWithEmailAndPassword();
-                    FocusScope.of(context).requestFocus(FocusNode());
-                  },
+              GestureDetector(
+                onTap: () async {
+                  await _signInWithEmailAndPassword();
+                  FocusScope.of(context).requestFocus(FocusNode());
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Container(
+                    width: 100,
+                    height: 50,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: const Color(0xffa5aa52),
+                    ),
+                    child: const Text(
+                      'Sign In',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Color(0xffdbf4ad),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],

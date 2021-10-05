@@ -53,75 +53,105 @@ class _ProjectScreenState extends State<ProjectScreen> {
 
   @override
   void dispose() {
+    cancelStream();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xff634310),
       appBar: AppBar(
-        backgroundColor: const Color(0xff6b705c),
+        title: Text(
+          widget.project.project.name,
+          style: const TextStyle(
+            color: Color(0xffdbf4ad),
+          ),
+        ),
+        backgroundColor: const Color(0xff634310),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Text(widget.project.project.name),
-            Text(widget.project.project.description),
-            Text('\$${donations.toStringAsFixed(2)}'),
-            IconButton(
-              iconSize: 100,
-              onPressed: () {
-                var rng = Random();
-                double rnValue = (rng.nextDouble() * 100);
-                users.users[widget.project.usersIndex]
-                    .projects[widget.project.projectIndex].donations += rnValue;
-                users.users[widget.project.usersIndex]
-                    .projects[widget.project.projectIndex].donors
-                    .insert(
-                  0,
-                  Donor(
-                    donor: '${widget.loggedInUser.name} donated \$'
-                        '${rnValue.toStringAsFixed(2)}',
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Text(
+                  widget.project.project.description,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Color(0xffdbf4ad),
                   ),
-                );
-                updateUser(users);
-
-                if (users.users[widget.project.usersIndex]
-                        .projects[widget.project.projectIndex].donations >
-                    500) {
-                  showAlertDialog(context);
-                }
-              },
-              icon: Image.asset(
-                'assets/icons/donate_icon.png',
-                color: const Color(
-                  0xff6b705c,
                 ),
               ),
-            ),
-            SingleChildScrollView(
-              child: SizedBox(
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Text(
+                  '\$${donations.toStringAsFixed(2)}',
+                  style: const TextStyle(
+                    fontSize: 28,
+                    color: Color(0xffdb3a34),
+                  ),
+                ),
+              ),
+              IconButton(
+                iconSize: 100,
+                onPressed: () {
+                  var rng = Random();
+                  double rnValue = (rng.nextDouble() * 100);
+                  users
+                      .users[widget.project.usersIndex]
+                      .projects[widget.project.projectIndex]
+                      .donations += rnValue;
+                  users.users[widget.project.usersIndex]
+                      .projects[widget.project.projectIndex].donors
+                      .insert(
+                    0,
+                    Donor(
+                      donor: '${widget.loggedInUser.name} donated \$'
+                          '${rnValue.toStringAsFixed(2)}',
+                    ),
+                  );
+                  updateUser(users);
+
+                  if (users.users[widget.project.usersIndex]
+                          .projects[widget.project.projectIndex].donations >
+                      500) {
+                    showAlertDialog(context);
+                  }
+                },
+                icon: Image.asset(
+                  'assets/icons/donate_icon.png',
+                  color: const Color(0xffcdc776),
+                ),
+              ),
+              SizedBox(
                 height: 440,
                 child: ListView.builder(
                   itemCount: donors.length,
                   itemBuilder: (context, index) {
-                    return Card(
-                      child: ListTile(
-                        leading: const Text(
-                          'Thanks!',
-                          style: TextStyle(
+                    return Padding(
+                      padding:
+                          const EdgeInsets.only(left: 10, right: 10, bottom: 8),
+                      child: Card(
+                        child: ListTile(
+                          leading: const Text(
+                            'Thanks!',
+                            style: TextStyle(
                               fontSize: 20,
                               fontStyle: FontStyle.italic,
-                              color: Colors.lightGreen),
+                              color: Color(0xffa5aa52),
+                            ),
+                          ),
+                          title: Text(donors[index].donor),
                         ),
-                        title: Text(donors[index].donor),
                       ),
                     );
                   },
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -130,9 +160,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
   void showAlertDialog(BuildContext context) {
     // set up the AlertDialog
     final AlertDialog alert = AlertDialog(
-      backgroundColor: const Color(
-        0xff6b705c,
-      ),
+      backgroundColor: const Color(0xffdb3a34),
       title: Image.asset(
         'assets/images/mad_it.gif',
       ),

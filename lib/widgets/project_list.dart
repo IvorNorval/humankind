@@ -41,16 +41,16 @@ class _ProjectsWidgetState extends State<ProjectsWidget> {
                   ),
                 );
               },
-              child: Card(
-                child: ListTile(
-                  leading: Image.asset(
-                    'assets/icons/donate_icon.png',
-                    color: const Color(0xff6b705c),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10, bottom: 8),
+                child: Card(
+                  child: ListTile(
+                    leading: const Icon(Icons.view_in_ar),
+                    title: Text(widget.projects[index].project.name),
+                    subtitle: Text(widget.projects[index].project.description),
+                    trailing: Text(
+                        '\$${widget.projects[index].project.donations.toStringAsFixed(2)}'),
                   ),
-                  title: Text(widget.projects[index].project.name),
-                  subtitle: Text(widget.projects[index].project.description),
-                  trailing: Text(
-                      '\$${widget.projects[index].project.donations.toStringAsFixed(2)}'),
                 ),
               ),
             );
