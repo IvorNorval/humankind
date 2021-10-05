@@ -44,6 +44,9 @@ class _ProjectsWidgetState extends State<ProjectsWidget> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 10, right: 10, bottom: 8),
                 child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
                   child: ListTile(
                     leading: const Icon(Icons.view_in_ar),
                     title: Text(widget.projects[index].project.name),

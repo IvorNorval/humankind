@@ -7,3 +7,4 @@ Color darkKhaki = const Color(0xffcdc776);
 Color oliveGreen = const Color(0xffa5aa52);
 Color bitterLime = const Color(0xffc3f73a);
 Color cgRed = const Color(0xffdb3a34);
+Color mistyMoss = const Color(0xffafa060);

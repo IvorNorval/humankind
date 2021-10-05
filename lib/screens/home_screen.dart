@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xff634310),
+        backgroundColor: const Color(0xffafa060), //c2a878 afa060
         body: Center(
           child: Column(
             children: <Widget>[
@@ -111,8 +111,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 users: users,
               ),
               if (showProfile)
-                TextButton(
-                  onPressed: () {
+                GestureDetector(
+                  onTap: () async {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -124,7 +124,25 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     );
                   },
-                  child: const Text('Profile'),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: 100,
+                      height: 50,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: const Color(0xffa5aa52),
+                      ),
+                      child: const Text(
+                        'Profile',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Color(0xffdbf4ad),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ProjectsWidget(
                 projects: projects,

@@ -60,7 +60,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff634310),
+      backgroundColor: const Color(0xffafa060),
       appBar: AppBar(
         title: Text(
           widget.project.project.name,
