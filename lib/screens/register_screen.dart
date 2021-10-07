@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:humankind/models/user.dart';
 import 'package:humankind/models/users.dart';
 import 'package:humankind/services/db_helper.dart';
+import 'package:humankind/widgets/text_input.dart';
 
 class RegisterScreen extends StatefulWidget {
   final FirebaseAuth auth;
@@ -102,57 +103,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: Center(
         child: Column(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                ),
-                child: TextFormField(
-                  controller: _nameController,
-                  decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: ' Enter your name',
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                ),
-                child: TextFormField(
-                  controller: _emailController,
-                  decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: ' Enter your email address',
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                ),
-                child: TextFormField(
-                  controller: _passwordController,
-                  decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: ' Enter your password',
-                  ),
-                  obscureText: true,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                ),
-              ),
-            ),
+            TextInput(controller: _nameController,label: ' Enter your name',isPassword: false,),
+            TextInput(controller: _emailController,label: ' Enter your email address',isPassword: false,),
+            TextInput(controller: _passwordController,label: ' Enter your password',isPassword: true,),
+
             GestureDetector(
               onTap: () async {
                 if (_nameController.text.isNotEmpty &&
@@ -193,3 +147,4 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 }
+

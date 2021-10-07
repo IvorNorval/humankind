@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:humankind/widgets/button1.dart';
+import 'package:humankind/widgets/text_input.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -95,69 +97,12 @@ class _SignInScreenState extends State<SignInScreen> {
         body: Center(
           child: Column(
             children: <Widget>[
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                  ),
-                  child: TextFormField(
-                    controller: _emailController,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: ' Enter your email address',
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                  ),
-                  child: TextFormField(
-                    controller: _passwordController,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: ' Enter your password',
-                      fillColor: Colors.white,
-                    ),
-                    obscureText: true,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () async {
-                  await _signInWithEmailAndPassword();
-                  FocusScope.of(context).requestFocus(FocusNode());
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Container(
-                    width: 100,
-                    height: 50,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: const Color(0xffa5aa52),
-                    ),
-                    child: const Text(
-                      'Sign In',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              TextInput(controller: _emailController,label: ' Enter your email address',isPassword: false,),
+              TextInput(controller: _passwordController,label: ' Enter your password',isPassword: true,),
+              Button1(label: 'Sign In',onTap: ()async {
+              await _signInWithEmailAndPassword();
+              FocusScope.of(context).requestFocus(FocusNode());
+              },),
             ],
           ),
         ),

@@ -52,9 +52,18 @@ class _MyAppState extends State<MyApp> {
       print('loading firebase');
       return const MaterialApp();
     }
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Flutter Demo',
-      home: HomeScreen(),
+      theme: ThemeData(
+        //primaryColor: const Color(0xff634310),
+        focusColor: const Color(0xff634310),
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: const Color(0xff634310),
+          selectionColor: const Color(0xff634310),
+          selectionHandleColor: const Color(0xff634310),
+        ),
+      ),
+      home: const HomeScreen(),
     );
   }
 }
