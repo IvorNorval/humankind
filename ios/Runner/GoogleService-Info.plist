@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>292294802001-n6k9o0be3r2nh05e3l3e1eqk3o48h342.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.292294802001-n6k9o0be3r2nh05e3l3e1eqk3o48h342</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDQFuCimERtwyat6Mw_ihyrY2yNY4MhH1I</string>
+	<key>GCM_SENDER_ID</key>
+	<string>292294802001</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.humankind</string>
+	<key>PROJECT_ID</key>
+	<string>humankind-71929</string>
+	<key>STORAGE_BUCKET</key>
+	<string>humankind-71929.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:292294802001:ios:43c4b1ec2a8c668bbdd670</string>
+</dict>
+</plist>
