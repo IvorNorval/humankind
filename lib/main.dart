@@ -49,7 +49,6 @@ class _MyAppState extends State<MyApp> {
 
     // Show a loader until FlutterFire is initialized
     if (!_initialized) {
-      print('loading firebase');
       return const MaterialApp();
     }
     return MaterialApp(
@@ -57,10 +56,10 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         //primaryColor: const Color(0xff634310),
         focusColor: const Color(0xff634310),
-        textSelectionTheme: TextSelectionThemeData(
-          cursorColor: const Color(0xff634310),
-          selectionColor: const Color(0xff634310),
-          selectionHandleColor: const Color(0xff634310),
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: Color(0xff634310),
+          selectionColor: Color(0xff634310),
+          selectionHandleColor: Color(0xff634310),
         ),
       ),
       home: const HomeScreen(),

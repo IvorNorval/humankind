@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:humankind/models/user.dart';
 import 'package:humankind/models/users.dart';
 import 'package:humankind/services/db_helper.dart';
+import 'package:humankind/widgets/button1.dart';
 import 'package:humankind/widgets/text_input.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -22,8 +23,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   late StreamSubscription lister;
-
-  String _registerS = 'Register';
 
   @override
   void initState() {
@@ -73,7 +72,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         setState(
           () {
             if (user == null) {
-              _registerS = 'Register';
               _emailController.text = '';
               _passwordController.text = '';
             } else {
@@ -103,12 +101,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: Center(
         child: Column(
           children: <Widget>[
-            TextInput(controller: _nameController,label: ' Enter your name',isPassword: false,),
-            TextInput(controller: _emailController,label: ' Enter your email address',isPassword: false,),
-            TextInput(controller: _passwordController,label: ' Enter your password',isPassword: true,),
-
-            GestureDetector(
+            TextInput(
+              controller: _nameController,
+              label: ' Enter your name',
+              isPassword: false,
+            ),
+            TextInput(
+              controller: _emailController,
+              label: ' Enter your email address',
+              isPassword: false,
+            ),
+            TextInput(
+              controller: _passwordController,
+              label: ' Enter your password',
+              isPassword: true,
+            ),
+            Button1(
+              label: 'Register',
               onTap: () async {
+                FocusScope.of(context).unfocus();
                 if (_nameController.text.isNotEmpty &&
                     _emailController.text.isNotEmpty &&
                     _passwordController.text.isNotEmpty) {
@@ -119,27 +130,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   widget.users.users.add(user);
                   updateUser(widget.users);
                 }
-                FocusScope.of(context).requestFocus(FocusNode());
               },
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Container(
-                  width: 100,
-                  height: 50,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: const Color(0xffa5aa52),
-                  ),
-                  child: Text(
-                    _registerS,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
             ),
           ],
         ),
@@ -147,4 +138,3 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 }
-

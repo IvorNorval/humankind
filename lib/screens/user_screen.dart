@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:humankind/models/user.dart';
 import 'package:humankind/models/users.dart';
+import 'package:humankind/widgets/button1.dart';
 
 import 'add_project_screen.dart';
 
@@ -63,7 +64,8 @@ class _UserScreenState extends State<UserScreen> {
                   ),
                 ),
               ),
-              GestureDetector(
+              Button1(
+                label: 'Add project',
                 onTap: () async {
                   Navigator.push(
                     context,
@@ -75,25 +77,6 @@ class _UserScreenState extends State<UserScreen> {
                     ),
                   );
                 },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    width: 150,
-                    height: 50,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: const Color(0xffa5aa52),
-                    ),
-                    child: const Text(
-                      'Add project',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
               ),
               SizedBox(
                 height: 440,

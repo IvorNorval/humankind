@@ -8,6 +8,7 @@ import 'package:humankind/models/user.dart';
 import 'package:humankind/models/users.dart';
 import 'package:humankind/services/db_helper.dart';
 import 'package:humankind/widgets/banner.dart';
+import 'package:humankind/widgets/button1.dart';
 import 'package:humankind/widgets/project_list.dart';
 
 import 'user_screen.dart';
@@ -111,7 +112,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 users: users,
               ),
               if (showProfile)
-                GestureDetector(
+                Button1(
+                  label: 'Profile',
                   onTap: () async {
                     Navigator.push(
                       context,
@@ -124,25 +126,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     );
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      width: 100,
-                      height: 50,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: const Color(0xffa5aa52),
-                      ),
-                      child: const Text(
-                        'Profile',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
                 ),
               ProjectsWidget(
                 projects: projects,

@@ -97,12 +97,23 @@ class _SignInScreenState extends State<SignInScreen> {
         body: Center(
           child: Column(
             children: <Widget>[
-              TextInput(controller: _emailController,label: ' Enter your email address',isPassword: false,),
-              TextInput(controller: _passwordController,label: ' Enter your password',isPassword: true,),
-              Button1(label: 'Sign In',onTap: ()async {
-              await _signInWithEmailAndPassword();
-              FocusScope.of(context).requestFocus(FocusNode());
-              },),
+              TextInput(
+                controller: _emailController,
+                label: ' Enter your email address',
+                isPassword: false,
+              ),
+              TextInput(
+                controller: _passwordController,
+                label: ' Enter your password',
+                isPassword: true,
+              ),
+              Button1(
+                label: 'Sign In',
+                onTap: () async {
+                  FocusScope.of(context).unfocus();
+                  await _signInWithEmailAndPassword();
+                },
+              ),
             ],
           ),
         ),
